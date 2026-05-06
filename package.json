@@ -1,0 +1,51 @@
+{
+  "name": "react-brandicons",
+  "version": "0.1.0",
+  "description": "React component for BrandIcons — auto-upgrades when an icon becomes available.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neocoder/react-brandicons.git"
+  },
+  "homepage": "https://brandicons.dev",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly --declaration --outDir dist",
+    "test": "vitest run",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.3.3",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [
+    "brandicons",
+    "favicon",
+    "icon",
+    "react",
+    "logo"
+  ]
+}
