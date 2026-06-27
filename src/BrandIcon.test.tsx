@@ -8,13 +8,13 @@ describe("BrandIcon", () => {
             <BrandIcon
                 domain="github.com"
                 apiKey="bri_xxx_yyy_zzzzzzzzzzzzzzzz"
-                placeholder="@image-off"
+                placeholder="@empty"
                 loadingPlaceholder="@loader-spin"
             />,
         );
         expect(html).toContain("/icons/github.com/medium");
         expect(html).toContain("key=bri_xxx_yyy_zzzzzzzzzzzzzzzz");
-        expect(html).toContain("p=%40image-off");
+        expect(html).toContain("p=%40empty");
         expect(html).toContain("pl=%40loader-spin");
     });
 

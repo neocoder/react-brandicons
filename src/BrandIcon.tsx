@@ -15,9 +15,13 @@ export interface BrandIconProps
     apiKey: string;
     /** Icon size — defaults to "medium" */
     size?: IconSize;
-    /** Placeholder shown when icon definitively not found, e.g. "@image-off" or "my-logo" */
+    /**
+     * Placeholder shown when the icon is definitively not found, e.g. "@empty"
+     * (the default), "@letter", "@globe-dark", "@globe:ffffff:1f2937", or the name
+     * of a placeholder you've uploaded. Omit it and the server uses "@empty".
+     */
     placeholder?: string;
-    /** Placeholder shown while worker is still searching, e.g. "@loader-spin" */
+    /** Placeholder shown while the backend is still searching, e.g. "@loader-spin" */
     loadingPlaceholder?: string;
     /** Override CDN base URL */
     baseUrl?: string;

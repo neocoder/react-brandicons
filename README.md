@@ -26,7 +26,7 @@ import { BrandIcon } from "react-brandicons";
   domain="github.com"
   apiKey="bri_xxx_xxx_xxxxxxxxxxxxxxxx"
   size="medium"
-  placeholder="@image-off"
+  placeholder="@empty"
   loadingPlaceholder="@loader-spin"
   className="h-8 w-8"
 />;
@@ -39,10 +39,31 @@ import { BrandIcon } from "react-brandicons";
 | `domain`             | `string`                                              | —          | Domain to fetch the icon for.                                                                                                                    |
 | `apiKey`             | `string`                                              | —          | Public, domain-locked BrandIcons API key.                                                                                                        |
 | `size`               | `"ico" \| "small" \| "medium" \| "large" \| "vector"` | `"medium"` | Icon size.                                                                                                                                       |
-| `placeholder`        | `string`                                              | —          | Shown when the icon is definitively not found. `@name` references built-ins (e.g. `@image-off`); plain names reference your custom placeholders. |
+| `placeholder`        | `string`                                              | `@empty`   | Shown when the icon is definitively not found. `@name` references built-ins; plain names reference your custom placeholders. Omit it and the server defaults to `@empty`. See [Placeholders](#placeholders). |
 | `loadingPlaceholder` | `string`                                              | —          | Shown while the backend is still searching. Same naming rules as `placeholder`.                                                                  |
 | `retry`              | `boolean`                                             | `true`     | Auto-poll and refresh the image when the icon becomes available.                                                                                 |
 | any `<img>` prop     | —                                                     | —          | Forwarded to the underlying `<img>` (`className`, `style`, `width`, etc.).                                                                       |
+
+## Placeholders
+
+`placeholder` and `loadingPlaceholder` accept any token the API understands — they're
+passed straight through, so new tokens work without upgrading this component.
+
+- **Built-ins** — `@name`, e.g. `@empty` (a neutral X, the default), `@image-off`,
+  `@globe`, `@loader-spin`. Omit `placeholder` entirely and the server uses `@empty`.
+- **Theme presets** — append `-light` or `-dark` to any built-in to match your page,
+  e.g. `@globe-dark`, `@empty-light`.
+- **Custom colors** — `@name:background:line` with two 6-digit hex values (no `#`); use
+  `none` for a transparent background. E.g. `@globe:ffffff:1f2937`, `@empty:none:0ea5e9`.
+- **Letter avatars** — `@letter` draws a square with the domain's initials, colored from
+  the domain. Pick a palette with `@letter-pastel` / `@letter-vibrant`, or your own
+  background with `@letter:0ea5e9`.
+- **Your uploads** — a plain name (no `@`) references a placeholder you've uploaded.
+
+```tsx
+<BrandIcon domain="acme.io" apiKey="bri_…" placeholder="@letter-pastel" />
+<BrandIcon domain="acme.io" apiKey="bri_…" placeholder="@globe:ffffff:1f2937" />
+```
 
 ## How retry works
 
