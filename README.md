@@ -14,6 +14,9 @@ bun add react-brandicons
 
 React 18 or 19 is required as a peer dependency.
 
+Get a free, domain-locked API key at [brandicons.dev](https://brandicons.dev). See the
+[full API docs](https://brandicons.dev/docs/) for sizes, placeholders, and limits.
+
 ## Usage
 
 ```tsx
