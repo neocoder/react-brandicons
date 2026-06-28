@@ -23,6 +23,14 @@ export interface BrandIconProps
     placeholder?: string;
     /** Placeholder shown while the backend is still searching, e.g. "@loader-spin" */
     loadingPlaceholder?: string;
+    /**
+     * Render the icon on an opaque background so transparent logos stay visible
+     * on colored surfaces. `"auto"` uses the icon's contrast-safe suggested tile
+     * (and falls back to the plain icon when none is confident); a 6-digit hex
+     * like `"ffffff"` forces that color. Omitted → the icon is served as-is
+     * (transparent). Ignored for `size="vector"`.
+     */
+    background?: "auto" | (string & {});
     /** Override CDN base URL */
     baseUrl?: string;
     /** Disable automatic polling/retry */
@@ -36,10 +44,12 @@ function buildUrl(opts: {
     apiKey: string;
     placeholder?: string;
     loadingPlaceholder?: string;
+    background?: string;
 }): string {
     const params = new URLSearchParams({ key: opts.apiKey });
     if (opts.placeholder) params.set("p", opts.placeholder);
     if (opts.loadingPlaceholder) params.set("pl", opts.loadingPlaceholder);
+    if (opts.background) params.set("bg", opts.background);
     return `${opts.baseUrl}/icons/${encodeURIComponent(opts.domain)}/${opts.size}?${params}`;
 }
 
@@ -59,12 +69,21 @@ export function BrandIcon({
     size = "medium",
     placeholder,
     loadingPlaceholder,
+    background,
     baseUrl = DEFAULT_BASE_URL,
     retry = true,
     alt,
     ...imgProps
 }: BrandIconProps) {
-    const url = buildUrl({ baseUrl, domain, size, apiKey, placeholder, loadingPlaceholder });
+    const url = buildUrl({
+        baseUrl,
+        domain,
+        size,
+        apiKey,
+        placeholder,
+        loadingPlaceholder,
+        background,
+    });
     const [bust, setBust] = useState(0);
     const attemptRef = useRef(0);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

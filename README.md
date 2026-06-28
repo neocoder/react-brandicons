@@ -41,6 +41,7 @@ import { BrandIcon } from "react-brandicons";
 | `size`               | `"ico" \| "small" \| "medium" \| "large" \| "vector"` | `"medium"` | Icon size.                                                                                                                                       |
 | `placeholder`        | `string`                                              | `@empty`   | Shown when the icon is definitively not found. `@name` references built-ins; plain names reference your custom placeholders. Omit it and the server defaults to `@empty`. See [Placeholders](#placeholders). |
 | `loadingPlaceholder` | `string`                                              | —          | Shown while the backend is still searching. Same naming rules as `placeholder`.                                                                  |
+| `background`         | `"auto" \| string`                                    | —          | Render the icon on an opaque background so transparent logos stay visible on colored surfaces. `"auto"` uses the contrast-safe suggested tile; a 6-digit hex (e.g. `"ffffff"`) forces a color. See [Backgrounds](#backgrounds). |
 | `retry`              | `boolean`                                             | `true`     | Auto-poll and refresh the image when the icon becomes available.                                                                                 |
 | any `<img>` prop     | —                                                     | —          | Forwarded to the underlying `<img>` (`className`, `style`, `width`, etc.).                                                                       |
 
@@ -64,6 +65,25 @@ passed straight through, so new tokens work without upgrading this component.
 <BrandIcon domain="acme.io" apiKey="bri_…" placeholder="@letter-pastel" />
 <BrandIcon domain="acme.io" apiKey="bri_…" placeholder="@globe:ffffff:1f2937" />
 ```
+
+## Backgrounds
+
+Many brand logos are transparent, so they vanish on a colored or dark surface.
+`background` renders the icon on an opaque tile baked into the image — one
+request, no flicker, cached at the edge.
+
+```tsx
+// Use the contrast-safe tile we detected for this icon (falls back to the
+// plain icon when none is confident):
+<BrandIcon domain="vercel.com" apiKey="bri_…" background="auto" />
+
+// Or force a specific color to match your UI (6-digit hex, no `#`):
+<BrandIcon domain="vercel.com" apiKey="bri_…" background="0ea5e9" />
+```
+
+It's opt-in: omit `background` and the icon is served as-is (transparent), so
+it composes with your own rounded containers and brand-colored cards. Ignored
+for `size="vector"`.
 
 ## How retry works
 

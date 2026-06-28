@@ -18,6 +18,24 @@ describe("BrandIcon", () => {
         expect(html).toContain("pl=%40loader-spin");
     });
 
+    it("appends bg when background is set", () => {
+        const html = renderToStaticMarkup(
+            <BrandIcon
+                domain="vercel.com"
+                apiKey="bri_a_b_cccccccccccccccc"
+                background="auto"
+            />,
+        );
+        expect(html).toContain("bg=auto");
+    });
+
+    it("omits bg by default", () => {
+        const html = renderToStaticMarkup(
+            <BrandIcon domain="vercel.com" apiKey="bri_a_b_cccccccccccccccc" />,
+        );
+        expect(html).not.toContain("bg=");
+    });
+
     it("respects custom size and base URL", () => {
         const html = renderToStaticMarkup(
             <BrandIcon
